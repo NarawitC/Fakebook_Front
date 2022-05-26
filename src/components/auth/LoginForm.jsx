@@ -1,10 +1,16 @@
 import { Modal } from 'bootstrap';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ErrorContext } from '../../contexts/ErrorContext';
 import RegisterForm from './RegisterForm';
 
 function LoginForm() {
   const modalEl = useRef();
   const [modal, setModal] = useState(null);
+  const { login } = useContext(AuthContext);
+  const [emailOrPhone, setEmailOrPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const { setError } = useContext(ErrorContext);
 
   const handleClickModal = () => {
     const modalObj = new Modal(modalEl.current);
@@ -15,14 +21,29 @@ function LoginForm() {
     modal.hide();
   };
 
+  const handleSubmitLogin = async (e) => {
+    try {
+      e.preventDefault();
+      await login({ emailOrPhone, password });
+    } catch (err) {
+      setError(err.response.data.message);
+      // console.log(err.response.data.message);
+    }
+  };
+
   return (
     <>
-      <form className="border border-1 shadow p-3 rounded-lg bg-white mx-auto max-w-99">
+      <form
+        className="border border-1 shadow p-3 rounded-lg bg-white mx-auto max-w-99"
+        onSubmit={handleSubmitLogin}
+      >
         <div className="mb-3">
           <input
             type="text"
             className="form-control rounded-md h-13"
             placeholder="Email address or phone number"
+            value={emailOrPhone}
+            onChange={(e) => setEmailOrPhone(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -30,11 +51,13 @@ function LoginForm() {
             type="password"
             className="form-control rounded-md h-13"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="mb-2 d-grid">
           <button
-            type="button"
+            type="submit"
             className="btn btn-primary rounded-md h-12 fw-bold text-4.5"
           >
             Log In

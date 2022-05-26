@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
+import { ErrorContext } from '../../contexts/ErrorContext';
+
 function RegisterForm({ closeModal }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -9,18 +11,25 @@ function RegisterForm({ closeModal }) {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { signUp } = useContext(AuthContext);
+  const { setError, setTrigger } = useContext(ErrorContext);
 
   const handleSubmitSignUp = async (e) => {
-    e.preventDefault();
-    // ! Validate input
-    await signUp({
-      firstName,
-      lastName,
-      emailOrPhone,
-      password,
-      confirmPassword,
-    });
-    closeModal();
+    try {
+      e.preventDefault();
+      // ! Validate input
+      await signUp({
+        firstName,
+        lastName,
+        emailOrPhone,
+        password,
+        confirmPassword,
+      });
+      closeModal();
+    } catch (err) {
+      setError(err.response.data.message);
+      console.log(err.response.data.message);
+      setTrigger((prev) => !prev);
+    }
   };
   return (
     <form className="row gx-2 gy-3" onSubmit={handleSubmitSignUp}>
