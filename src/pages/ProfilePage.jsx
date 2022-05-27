@@ -1,4 +1,7 @@
+import ProfileContainer from '../components/profile/ProfileContainer';
+
 function ProfilePage() {
-  return <div>Profile Page</div>;
+  return <ProfileContainer />;
 }
+
 export default ProfilePage;

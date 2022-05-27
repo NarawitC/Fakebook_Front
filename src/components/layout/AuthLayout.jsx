@@ -3,10 +3,12 @@ import Header from './header/Header';
 
 function AuthLayout() {
   return (
-    <div>
+    <>
       <Header></Header>
-      <Outlet></Outlet>
-    </div>
+      <div className="min-vh-100 tw-pt-14">
+        <Outlet></Outlet>
+      </div>
+    </>
   );
 }
 
