@@ -3,7 +3,7 @@ import MenuItem from './MenuItem';
 
 const menus = [
   {
-    title: 'Request Friends',
+    title: 'Friend Requests',
     to: '/friend/request',
     icon: 'fa-solid fa-user-check',
   },

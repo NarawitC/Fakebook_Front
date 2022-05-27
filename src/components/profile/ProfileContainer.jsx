@@ -16,7 +16,7 @@ function ProfileContainer() {
         const res = await axios.get('/users/' + id);
         // console.log(res);
         setUserProfile(res.data.user);
-        console.log(res.data.user);
+        // console.log(res.data.user);
       } catch (err) {
         console.log(err);
       } finally {

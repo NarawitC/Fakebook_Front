@@ -1,4 +1,6 @@
+import FriendContainer from '../components/friend/FriendContainer';
+
 function FriendPage() {
-  return <div>Friend Page</div>;
+  return <FriendContainer></FriendContainer>;
 }
 export default FriendPage;
