@@ -14,3 +14,11 @@ export const createComment = ({ postId, title }) => {
 export const deleteComment = (postId, commentId) => {
   return axios.delete(`/posts/${postId}/comments/${commentId}`);
 };
+
+export const createLike = (postId) => {
+  return axios.post(`/posts/${postId}/like`);
+};
+
+export const deleteLike = (postId) => {
+  return axios.delete(`/posts/${postId}/like`);
+};
