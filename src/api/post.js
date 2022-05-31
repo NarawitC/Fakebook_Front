@@ -6,3 +6,11 @@ export const createPost = (title, image) => {
   return axios.post('/posts', formData);
 };
 export const getAllPost = () => axios.get('/users/posts');
+
+export const createComment = ({ postId, title }) => {
+  return axios.post(`/posts/${postId}/comments`, { title });
+};
+
+export const deleteComment = (postId, commentId) => {
+  return axios.delete(`/posts/${postId}/comments/${commentId}`);
+};

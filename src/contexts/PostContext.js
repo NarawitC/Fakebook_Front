@@ -5,7 +5,10 @@ import postReducer, { initial } from '../reducers/postReducer';
 const PostContext = createContext();
 
 function PostContextProvider({ children }) {
-  const [{ posts }, dispatch] = useReducer(postReducer, initial);
+  const [{ posts, commentMapping }, dispatch] = useReducer(
+    postReducer,
+    initial
+  );
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -18,7 +21,9 @@ function PostContextProvider({ children }) {
     fetchPost();
   }, []);
   return (
-    <PostContext.Provider value={{ posts }}>{children}</PostContext.Provider>
+    <PostContext.Provider value={{ posts, dispatch, commentMapping }}>
+      {children}
+    </PostContext.Provider>
   );
 }
 
