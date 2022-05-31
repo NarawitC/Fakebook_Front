@@ -7,6 +7,8 @@ export const createPost = (title, image) => {
 };
 export const getAllPost = () => axios.get('/users/posts');
 
+export const deletePost = (id) => axios.delete(`/posts/${id}`);
+
 export const createComment = ({ postId, title }) => {
   return axios.post(`/posts/${postId}/comments`, { title });
 };
@@ -22,3 +24,4 @@ export const createLike = (postId) => {
 export const deleteLike = (postId) => {
   return axios.delete(`/posts/${postId}/like`);
 };
+

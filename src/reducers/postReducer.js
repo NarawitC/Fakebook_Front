@@ -1,4 +1,9 @@
-import { CREATE_COMMENT, DELETE_COMMENT, INIT } from '../actions/postAction';
+import {
+  CREATE_COMMENT,
+  DELETE_COMMENT,
+  DELETE_POST,
+  INIT,
+} from '../actions/postAction';
 
 export const initial = {
   posts: [],
@@ -41,6 +46,20 @@ export default function postReducer(state, action) {
           ...state.commentMapping,
           [action.payload.postId]: newComments,
         },
+      };
+    }
+    case DELETE_POST: {
+      console.log(state.posts);
+      const postId = action.payload.postId;
+      console.log(postId);
+      const newPosts = [...state.posts].filter((el) => el.id !== postId);
+      console.log({
+        ...state,
+        posts: newPosts,
+      });
+      return {
+        ...state,
+        posts: newPosts,
       };
     }
 
